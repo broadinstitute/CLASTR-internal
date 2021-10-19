@@ -6,12 +6,14 @@ services:
     ports:
       - "8081:80"
     logging:
-      driver: none 
+      driver: none
     restart: always
   tomcat:
     build:
       context: .
       dockerfile: ./webapp/Dockerfile
     logging:
-      driver: none 
+      driver: none
     restart: always
+    volumes:
+      - "/Users/wcolgan/Code/CLASTR-internal/resources:/resources"

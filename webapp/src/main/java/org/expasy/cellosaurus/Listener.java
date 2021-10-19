@@ -13,7 +13,9 @@ import java.net.URL;
  * profiles and store them in memory for subsequent searches.
  */
 public class Listener implements ServletContextListener {
-    private final static String URL = "ftp://ftp.expasy.org/databases/cellosaurus/cellosaurus.xml";
+    //private final static String URL = "ftp://ftp.expasy.org/databases/cellosaurus/cellosaurus.xml";
+    //private final static String URL = "file:///resources/cellosaurus_head_1000.xml";
+    private final static String URL = "file:///resources/example_database.xml";
 
     /**
      * Read the XML version of the Cellosaurus database from the FTP and store the human cell lines with STR profiles
