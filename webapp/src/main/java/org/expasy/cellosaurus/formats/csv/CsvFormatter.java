@@ -22,7 +22,7 @@ public class CsvFormatter {
      */
     public String toCsv(Search search) {
         StringBuilder sb = new StringBuilder();
-        sb.append("\"Accession\",\"Name\",\"Nº Markers\",\"Score\",");
+        sb.append("\"Accessionx\",\"Name\",\"Nº Markers\",\"Score\",");
 
         List<Marker> headerMarkers = FormatsUtils.makeHeaderMarkers(search.getParameters());
         for (Marker marker : headerMarkers) {

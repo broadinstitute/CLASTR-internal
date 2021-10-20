@@ -42,7 +42,7 @@ public class XlsxWriter implements Writer {
     private final XSSFCellStyle greenStyle;
     private final XSSFCellStyle orangeStyle;
     private final XSSFCellStyle redStyle;
-    
+
     private int sheets = 0;
 
     /**
@@ -64,7 +64,7 @@ public class XlsxWriter implements Writer {
         headerFont.setBold(true);
         this.headerStyle = this.workbook.createCellStyle();
         this.headerStyle.setFont(headerFont);
-        
+
         XSSFFont queryFont = this.workbook.createFont();
         queryFont.setColor(IndexedColors.ROYAL_BLUE.index);
         queryFont.setBold(true);
@@ -151,7 +151,7 @@ public class XlsxWriter implements Writer {
         XSSFCell headerCellN = header.createCell(headerMarkers.size() + 4);
         headerCellN.setCellValue(FormatsUtils.makeMetadata(search));
         headerCellN.setCellStyle(this.headerStyle);
-        
+
         XSSFRow query = sheet.createRow(1);
 
         XSSFCell queryCell0 = query.createCell(0);
@@ -184,7 +184,7 @@ public class XlsxWriter implements Writer {
                 cell.setCellStyle(this.queryStyle);
             }
         }
-        
+
         int c = 0;
         for (int i = 0; i < search.getResults().size(); i++) {
             CellLine cellLine = search.getResults().get(i);
@@ -220,10 +220,10 @@ public class XlsxWriter implements Writer {
                 if (accession.length() < sb.length()) {
                     textString.applyFont(accession.length(), sb.length(), this.italicFont);
                 }
-                Hyperlink link = this.workbook.getCreationHelper().createHyperlink(HyperlinkType.URL);
-                link.setAddress("https://web.expasy.org/cellosaurus/" + accession);
+                //Hyperlink link = this.workbook.getCreationHelper().createHyperlink(HyperlinkType.URL);
+                //ink.setAddress("https://web.expasy.org/cellosaurus/" + accession);
                 cell.setCellValue(textString);
-                cell.setHyperlink(link);
+                //cell.setHyperlink(link);
 
                 cell = row.createCell(1);
                 cell.setCellValue(cellLine.getName());

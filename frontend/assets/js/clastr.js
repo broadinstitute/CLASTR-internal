@@ -1113,7 +1113,7 @@ $(function () {
 
                 html.addClass("waiting");
                 exportProgressbar.addClass("animate");
-                
+
                 jsonResponse.description = $("#description").val();
                 let val = document.getElementById("export-extension").value;
                 switch (val) {

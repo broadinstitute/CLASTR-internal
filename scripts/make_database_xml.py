@@ -5,9 +5,13 @@ import copy
 cellosaurus_tree = ET.parse('/Users/wcolgan/Code/CLASTR-internal/resources/cellosaurus_head_1000.xml')
 cellosaurus_root = cellosaurus_tree.getroot()
 
-df = pd.read_csv('/Users/wcolgan/Code/CLASTR-internal/resources/example_database.tsv',sep = "\t")
+df = pd.read_csv('/Users/wcolgan/Data/DepMap_STR_Database/DepMap_Internal_STR_Database.tsv',sep = "\t")
 sites = ["D3S1358","TH01","D21S11","D18S51","Penta E","D5S818","D13S317","D7S820", \
          "D16S539","CSF1PO","Penta D","vWA","D8S1179","TPOX","FGA","Amelogenin"]
+df["Cellosaurus ID"] = df["Cellosaurus ID"].fillna("")
+df["Stripped Name"] = df["Stripped Name"].fillna("")
+
+print(df)
 
 tree = copy.deepcopy(cellosaurus_tree)
 root = tree.getroot()
@@ -20,12 +24,12 @@ for i in range(0,df.shape[0]):
 
     accession_list = ET.SubElement(cell_line,'accession-list')
     accession = ET.Element("accession",attrib = {'type': 'primary'})
-    accession.text = df.loc[i,"ID"]
+    accession.text = df.loc[i,"Cellosaurus ID"]
     accession_list.append(accession)
 
     name_list = ET.SubElement(cell_line,'name-list')
     name = ET.Element("name",attrib = {'type': 'identifier'})
-    name.text = df.loc[i,"Name"]
+    name.text = df.loc[i,"Arxspan ID"]
     name_list.append(name)
 
     str_list = ET.SubElement(cell_line,'str-list')
