@@ -126,20 +126,23 @@ public class XlsxWriter implements Writer {
         XSSFCell headerCell1 = header.createCell(1);
         XSSFCell headerCell2 = header.createCell(2);
         XSSFCell headerCell3 = header.createCell(3);
+        XSSFCell headerCell4 = header.createCell(4);
 
         headerCell0.setCellValue("Accession");
-        headerCell1.setCellValue("Name");
-        headerCell2.setCellValue("Nº Markers");
-        headerCell3.setCellValue("Score");
+        headerCell1.setCellValue("Arxspan");
+        headerCell2.setCellValue("Name");
+        headerCell3.setCellValue("Nº Markers");
+        headerCell4.setCellValue("Score");
 
         headerCell0.setCellStyle(this.headerStyle);
         headerCell1.setCellStyle(this.headerStyle);
         headerCell2.setCellStyle(this.headerStyle);
         headerCell3.setCellStyle(this.headerStyle);
+        headerCell4.setCellStyle(this.headerStyle);
 
         List<Marker> headerMarkers = FormatsUtils.makeHeaderMarkers(search.getParameters());
         for (int i = 0; i < headerMarkers.size(); i++) {
-            XSSFCell cell = header.createCell(i + 4);
+            XSSFCell cell = header.createCell(i + 5);
 
             if (headerMarkers.get(i).getName().equals("Amelogenin")) {
                 cell.setCellValue("Amel");
@@ -158,16 +161,19 @@ public class XlsxWriter implements Writer {
         XSSFCell queryCell1 = query.createCell(1);
         XSSFCell queryCell2 = query.createCell(2);
         XSSFCell queryCell3 = query.createCell(3);
+        XSSFCell queryCell4 = query.createCell(4);
 
         queryCell0.setCellValue("NA");
         queryCell1.setCellValue("Query");
         queryCell2.setCellValue("NA");
         queryCell3.setCellValue("NA");
+        queryCell4.setCellValue("NA");
 
         queryCell0.setCellStyle(this.queryStyle);
         queryCell1.setCellStyle(this.queryStyle);
         queryCell2.setCellStyle(this.queryStyle);
         queryCell3.setCellStyle(this.queryStyle);
+        queryCell4.setCellStyle(this.queryStyle);
 
         for (int i = 0; i < headerMarkers.size(); i++) {
             int idx = search.getParameters().getMarkers().indexOf(headerMarkers.get(i));
@@ -179,7 +185,7 @@ public class XlsxWriter implements Writer {
                 }
                 if (sb.length() > 0) sb.setLength(sb.length() - 1);
 
-                XSSFCell cell = query.createCell(i + 4);
+                XSSFCell cell = query.createCell(i + 5);
                 cell.setCellValue(sb.toString());
                 cell.setCellStyle(this.queryStyle);
             }
@@ -226,10 +232,14 @@ public class XlsxWriter implements Writer {
                 //cell.setHyperlink(link);
 
                 cell = row.createCell(1);
-                cell.setCellValue(cellLine.getName());
+                cell.setCellValue(cellLine.getArxspan());
                 cell.setCellStyle(this.defaultStyle);
 
                 cell = row.createCell(2);
+                cell.setCellValue(cellLine.getName());
+                cell.setCellStyle(this.defaultStyle);
+
+                cell = row.createCell(3);
                 cell.setCellValue(profile.getMarkerNumber());
                 if ((search.getParameters().isIncludeAmelogenin() && profile.getMarkerNumber() < 9) ||
                         (!search.getParameters().isIncludeAmelogenin() && profile.getMarkerNumber() < 8)) {
@@ -238,7 +248,7 @@ public class XlsxWriter implements Writer {
                     cell.setCellStyle(this.defaultStyle);
                 }
 
-                cell = row.createCell(3);
+                cell = row.createCell(4);
                 cell.setCellType(CellType.NUMERIC);
                 cell.setCellValue(String.format("%.2f", profile.getScore()) + "%");
 
@@ -279,7 +289,7 @@ public class XlsxWriter implements Writer {
                         }
                         sb.setLength(sb.length() - 1);
 
-                        cell = row.createCell(j + 4);
+                        cell = row.createCell(j + 5);
                         cell.setCellType(CellType.STRING);
                         textString = new XSSFRichTextString(sb.toString());
 

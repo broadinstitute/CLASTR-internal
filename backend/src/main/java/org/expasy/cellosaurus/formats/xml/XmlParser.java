@@ -33,6 +33,7 @@ public class XmlParser implements Parser {
             DefaultHandler handler = new DefaultHandler() {
                 boolean bAccession = false;
                 boolean bName = false;
+                boolean bArxspan = false;
                 boolean bStrList = false;
                 boolean bMarkerList = false;
                 boolean bAlleles = false;
@@ -53,6 +54,7 @@ public class XmlParser implements Parser {
                 ConflictResolver conflictResolver = new ConflictResolver();
 
                 String name;
+                String arxspan;
                 Marker marker;
                 String markerName;
                 boolean markerConflicted;
@@ -75,6 +77,11 @@ public class XmlParser implements Parser {
                         case "name":
                             if (attributes.getValue("type").equals("identifier")) {
                                 bName = true;
+                            }
+                            break;
+                        case "arxspan":
+                            if (attributes.getValue("type").equals("identifier")) {
+                                bArxspan = true;
                             }
                             break;
                         case "comment":
@@ -160,7 +167,7 @@ public class XmlParser implements Parser {
                                 species.addHierarchy(parent, accession);
 
                                 if (!conflictResolver.isEmpty()) {
-                                    CellLine cellLine = new CellLine(accession, name, speciesName);
+                                    CellLine cellLine = new CellLine(accession, name, speciesName, arxspan);
                                     cellLine.setProblematic(!problem.isEmpty());
                                     if (!problem.isEmpty()) cellLine.setProblem(problem);
                                     cellLine.addProfiles(conflictResolver.resolve());
@@ -168,7 +175,7 @@ public class XmlParser implements Parser {
                                 }
                             }
                             conflictResolver = new ConflictResolver();
-                            name = parent = problem = "";
+                            name = arxspan = parent = problem = "";
                             accessions = new ArrayList<>();
                             speciesNames = new ArrayList<>();
                             origins = new HashSet<>();
@@ -215,6 +222,9 @@ public class XmlParser implements Parser {
                     } else if (bName) {
                         name = new String(ch, start, length);
                         bName = false;
+                    } else if (bArxspan) {
+                        arxspan = new String(ch, start, length);
+                        bArxspan = false;
                     } else if (bAlleles) {
                         if (bStrList) {
                             for (String allele : new String(ch, start, length).split(",")) {

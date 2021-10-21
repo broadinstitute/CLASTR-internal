@@ -11,8 +11,6 @@ sites = ["D3S1358","TH01","D21S11","D18S51","Penta E","D5S818","D13S317","D7S820
 df["Cellosaurus ID"] = df["Cellosaurus ID"].fillna("")
 df["Stripped Name"] = df["Stripped Name"].fillna("")
 
-print(df)
-
 tree = copy.deepcopy(cellosaurus_tree)
 root = tree.getroot()
 root.remove(root[1])
@@ -29,8 +27,13 @@ for i in range(0,df.shape[0]):
 
     name_list = ET.SubElement(cell_line,'name-list')
     name = ET.Element("name",attrib = {'type': 'identifier'})
-    name.text = df.loc[i,"Arxspan ID"]
+    name.text = df.loc[i,"Stripped Name"]
     name_list.append(name)
+
+    arxspan_list = ET.SubElement(cell_line,'arxspan-list')
+    arxspan = ET.Element("arxspan",attrib = {'type': 'identifier'})
+    arxspan.text = df.loc[i,"Arxspan ID"]
+    arxspan_list.append(arxspan)
 
     str_list = ET.SubElement(cell_line,'str-list')
     source_list = ET.SubElement(str_list,'source-list')

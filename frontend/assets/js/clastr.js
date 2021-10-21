@@ -414,7 +414,6 @@ function search() {
                 }
                 document.getElementById("caption-count").innerText = response.searchSpace;
                 document.getElementById("caption-species").innerText = speciesNames[response.parameters.species];
-                document.getElementById("caption-release").innerText = response.cellosaurusRelease;
 
                 document.getElementById("results").style.display = "table";
                 results.animate({opacity: 1}, 1000, "swing");
@@ -450,7 +449,7 @@ let table = {
             currentMarkers.sort(markerComparator);
         }
         let tr = "";
-        let htmlContent = "<tr><th class='unselectable b0'><p class=\"sort-by\">Accession</p></th><th class='unselectable'><p class=\"sort-by\">Name</p></th><th class='unselectable'><p class=\"sort-by\">Nº Markers</p></th></th><th class='unselectable'><p class=\"sort-by\">Score</p></th>";
+        let htmlContent = "<tr><th class='unselectable b0'><p class=\"sort-by\">Accession</p></th><th class='unselectable'><p class=\"sort-by\">Arxspan</p></th><th class='unselectable'><p class=\"sort-by\">Name</p></th><th class='unselectable'><p class=\"sort-by\">Nº Markers</p></th></th><th class='unselectable'><p class=\"sort-by\">Score</p></th>";
         for (let i = 0; i < currentMarkers.length; i++) {
             let a = currentMarkers[i].split("_").join(" ");
             if (a.startsWith("Mouse")) {
@@ -463,7 +462,7 @@ let table = {
             htmlContent += "<th class='unselectable'><p class=\"sort-by\">" + a + "</p></th>";
             tr += "<td>" + document.getElementById("input-" + currentMarkers[i]).value + "</td>";
         }
-        htmlContent += "</tr><tr><td class='b0'>NA</td><td>Query</td><td>NA</td><td>NA</td></td>" + tr + "</tr>";
+        htmlContent += "</tr><tr><td class='b0'>NA</td><td>Query</td><td>NA</td><td>NA</td><td>NA</td></td>" + tr + "</tr>";
 
         for (let i = 0; i < json.results.length; i++) {
             let map = {};
@@ -532,6 +531,8 @@ let table = {
                 } else {
                     htmlContent += "<td class='" + cls + "'><a href=\"https://web.expasy.org/cellosaurus/" + json.results[i].accession + "\" target=\"_blank\">" + json.results[i].accession + "</a>" + ver + "</td>"
                 }
+
+                htmlContent += "<td><a href=\"https://cds.team/depmap/cell_line/" + json.results[i].arxspan + "\" target=\"_blank\">" + json.results[i].arxspan + "</td>"
 
                 htmlContent += "<td>" + json.results[i].name + "</td>";
                 if ((document.getElementById("check-include-Amelogenin").checked && json.results[i].profiles[a].markerNumber < 9) || (!document.getElementById("check-include-Amelogenin").checked && json.results[i].profiles[a].markerNumber < 8)) {

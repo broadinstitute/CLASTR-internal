@@ -125,7 +125,7 @@ public class TxtParser implements Parser {
                         species.addHierarchy(parent, accession);
 
                         if (!conflictResolver.isEmpty()) {
-                            CellLine cellLine = new CellLine(accession, name, speciesName);
+                            CellLine cellLine = new CellLine(accession, name, speciesName, null);
                             cellLine.setProblematic(!problem.isEmpty());
                             if (!problem.isEmpty()) cellLine.setProblem(problem);
                             cellLine.addProfiles(conflictResolver.resolve());

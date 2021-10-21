@@ -22,7 +22,7 @@ public class CsvFormatter {
      */
     public String toCsv(Search search) {
         StringBuilder sb = new StringBuilder();
-        sb.append("\"Accessionx\",\"Name\",\"Nº Markers\",\"Score\",");
+        sb.append("\"Accession\",\"Arxspan\",\"Name\",\"Nº Markers\",\"Score\",");
 
         List<Marker> headerMarkers = FormatsUtils.makeHeaderMarkers(search.getParameters());
         for (Marker marker : headerMarkers) {
@@ -38,7 +38,7 @@ public class CsvFormatter {
         sb.append("\"");
         sb.append(FormatsUtils.makeMetadata(search));
         sb.append("\"\r\n");
-        sb.append("\"NA\",\"Query\",\"NA\",\"NA\",");
+        sb.append("\"NA\",\"Query\",\"NA\",\"NA\",\"NA\",");
 
         for (Marker marker : headerMarkers) {
             sb.append('"');
@@ -75,6 +75,10 @@ public class CsvFormatter {
                 if (cellLine.isProblematic()) {
                     sb.append(" (Problematic cell line)");
                 }
+                sb.append('"');
+                sb.append(',');
+                sb.append('"');
+                sb.append(cellLine.getArxspan());
                 sb.append('"');
                 sb.append(',');
                 sb.append('"');
