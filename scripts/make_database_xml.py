@@ -45,7 +45,7 @@ for i in range(0,df.shape[0]):
         marker_data_list = ET.SubElement(marker,'marker-data-list')
         marker_data = ET.Element("marker-data")
         alleles = ET.SubElement(marker_data,"alleles")
-        alleles.text = df.loc[i,site]
+        alleles.text = df.loc[i,site].replace(", ",",")
         marker_data_list.append(marker_data)
         marker_list.append(marker)
 
@@ -71,4 +71,4 @@ def indent(elem, level=0):
 
 indent(root)
 
-tree.write('/Users/wcolgan/Code/CLASTR-internal/resources/example_database.xml')
+tree.write('/Users/wcolgan/Code/CLASTR-internal/resources/database.xml')
