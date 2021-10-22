@@ -1,0 +1,19 @@
+version: '2'
+services:
+  nginx:
+    build:
+      context: ./frontend
+    ports:
+      - "127.0.0.1:7823:80"
+    logging:
+      driver: none
+    restart: always
+  tomcat:
+    build:
+      context: .
+      dockerfile: ./webapp/Dockerfile
+    logging:
+      driver: none
+    restart: always
+    volumes:
+      - "/data1/str-search/resources:/resources"
