@@ -41,3 +41,15 @@ Python scripts showcasing examples of using the API.
 ### webapp
 
 Java webapp handling the RESTful API and processing queries.
+
+## CDS SPECIFIC
+
+To make changes, make them locally and then copy the changes to cds.team
+host by running:
+
+```
+./deploy.sh
+```
+
+This will copy the current working directory the cds.team and then restart
+the service.
