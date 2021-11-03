@@ -129,7 +129,7 @@ public class XlsxWriter implements Writer {
         XSSFCell headerCell4 = header.createCell(4);
 
         headerCell0.setCellValue("Accession");
-        headerCell1.setCellValue("Arxspan");
+        headerCell1.setCellValue("Source");
         headerCell2.setCellValue("Name");
         headerCell3.setCellValue("Nº Markers");
         headerCell4.setCellValue("Score");
@@ -232,7 +232,7 @@ public class XlsxWriter implements Writer {
                 //cell.setHyperlink(link);
 
                 cell = row.createCell(1);
-                cell.setCellValue(cellLine.getArxspan());
+                cell.setCellValue(cellLine.getSource());
                 cell.setCellStyle(this.defaultStyle);
 
                 cell = row.createCell(2);

@@ -60,9 +60,9 @@ public class JsonFormatter {
             }
             String accession = cellLineObject.get("accession").getAsString();
             String name = cellLineObject.get("name").getAsString();
-            String arxspan = cellLineObject.get("arxspan").getAsString();
+            String source = cellLineObject.get("source").getAsString();
 
-            CellLine cellLine = new CellLine(accession, name, species, arxspan);
+            CellLine cellLine = new CellLine(accession, name, species, source);
             cellLine.setBestScore(cellLineObject.get("bestScore").getAsDouble());
             cellLine.setProblematic(cellLineObject.get("problematic").getAsBoolean());
             if (cellLineObject.get("problem") != null) {

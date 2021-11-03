@@ -1,19 +1,26 @@
 import xml.etree.ElementTree as ET
 import pandas as pd
+import numpy as np
 import copy
 
-cellosaurus_tree = ET.parse('/Users/wcolgan/Code/CLASTR-internal/resources/cellosaurus_head_1000.xml')
-cellosaurus_root = cellosaurus_tree.getroot()
+tree = ET.parse('/Users/wcolgan/Code/CLASTR-internal/resources/cellosaurus.xml')
 
-df = pd.read_csv('/Users/wcolgan/Data/DepMap_STR_Database/DepMap_Internal_STR_Database.tsv',sep = "\t")
+df = pd.read_csv('/Users/wcolgan/Data/DepMap_STR_Database/database_v3.tsv',sep = "\t")
 sites = ["D3S1358","TH01","D21S11","D18S51","Penta E","D5S818","D13S317","D7S820", \
          "D16S539","CSF1PO","Penta D","vWA","D8S1179","TPOX","FGA","Amelogenin"]
-df["Cellosaurus ID"] = df["Cellosaurus ID"].fillna("")
 df["Stripped Name"] = df["Stripped Name"].fillna("")
+df["Arxspan ID"] = df["Arxspan ID"].fillna("")
+for site in sites:
+    df[site] = df[site].replace(np.nan, "")
 
-tree = copy.deepcopy(cellosaurus_tree)
 root = tree.getroot()
-root.remove(root[1])
+cell_line_list = root.findall('cell-line-list')[0]
+
+for cell_line in cell_line_list.findall('cell-line'):
+    source = ET.SubElement(cell_line,'str_from',attrib = {'type': 'identifier'})
+    source.text = "Cellosaurus"
+
+root = tree.getroot()
 cell_line_list = ET.SubElement(root,'cell-line-list')
 
 for i in range(0,df.shape[0]):
@@ -22,7 +29,7 @@ for i in range(0,df.shape[0]):
 
     accession_list = ET.SubElement(cell_line,'accession-list')
     accession = ET.Element("accession",attrib = {'type': 'primary'})
-    accession.text = df.loc[i,"Cellosaurus ID"]
+    accession.text = df.loc[i,"Arxspan ID"]
     accession_list.append(accession)
 
     name_list = ET.SubElement(cell_line,'name-list')
@@ -30,10 +37,14 @@ for i in range(0,df.shape[0]):
     name.text = df.loc[i,"Stripped Name"]
     name_list.append(name)
 
-    arxspan_list = ET.SubElement(cell_line,'arxspan-list')
-    arxspan = ET.Element("arxspan",attrib = {'type': 'identifier'})
-    arxspan.text = df.loc[i,"Arxspan ID"]
-    arxspan_list.append(arxspan)
+    source = ET.SubElement(cell_line,'str_from',attrib = {'type': 'identifier'})
+    source.text = df.loc[i,"Source"]
+
+    #only using one accession
+    #arxspan_list = ET.SubElement(cell_line,'arxspan-list')
+    #arxspan = ET.Element("arxspan",attrib = {'type': 'identifier'})
+    #arxspan.text = df.loc[i,"Arxspan ID"]
+    #arxspan_list.append(arxspan)
 
     str_list = ET.SubElement(cell_line,'str-list')
     source_list = ET.SubElement(str_list,'source-list')

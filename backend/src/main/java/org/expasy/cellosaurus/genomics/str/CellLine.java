@@ -12,7 +12,7 @@ import java.util.Objects;
 public class CellLine implements Comparable<CellLine> {
     private final String accession;
     private final String name;
-    private final String arxspan;
+    private final String source;
     private final String species;
     private double bestScore;
     private boolean problematic;
@@ -27,10 +27,10 @@ public class CellLine implements Comparable<CellLine> {
      * @param name      the name of the cell line
      * @param species   the species of the cell line
      */
-    public CellLine(String accession, String name, String species, String arxspan) {
+    public CellLine(String accession, String name, String species, String source) {
         this.accession = accession;
         this.name = name;
-        this.arxspan = arxspan;
+        this.source = source;
         this.species = species;
     }
 
@@ -42,7 +42,7 @@ public class CellLine implements Comparable<CellLine> {
     public CellLine(CellLine that) {
         this.accession = that.accession;
         this.name = that.name;
-        this.arxspan = that.arxspan;
+        this.source = that.source;
         this.species = that.species;
         this.bestScore = that.bestScore;
         this.problematic = that.problematic;
@@ -79,8 +79,8 @@ public class CellLine implements Comparable<CellLine> {
         return name;
     }
 
-    public String getArxspan() {
-        return arxspan;
+    public String getSource() {
+        return source;
     }
 
     public String getSpecies() {

@@ -449,7 +449,7 @@ let table = {
             currentMarkers.sort(markerComparator);
         }
         let tr = "";
-        let htmlContent = "<tr><th class='unselectable b0'><p class=\"sort-by\">Accession</p></th><th class='unselectable'><p class=\"sort-by\">Arxspan</p></th><th class='unselectable'><p class=\"sort-by\">Name</p></th><th class='unselectable'><p class=\"sort-by\">Nº Markers</p></th></th><th class='unselectable'><p class=\"sort-by\">Score</p></th>";
+        let htmlContent = "<tr><th class='unselectable b0'><p class=\"sort-by\">Accession</p></th><th class='unselectable'><p class=\"sort-by\">Source</p></th><th class='unselectable'><p class=\"sort-by\">Name</p></th><th class='unselectable'><p class=\"sort-by\">Nº Markers</p></th></th><th class='unselectable'><p class=\"sort-by\">Score</p></th>";
         for (let i = 0; i < currentMarkers.length; i++) {
             let a = currentMarkers[i].split("_").join(" ");
             if (a.startsWith("Mouse")) {
@@ -529,10 +529,15 @@ let table = {
                 if (json.results[i].problematic) {
                     htmlContent += "<td class='" + cls + "'><a title=\"" + table._formatDescription(json.results[i].problem) + "\" style='color:red' href=\"https://web.expasy.org/cellosaurus/" + json.results[i].accession + "\" target=\"_blank\">" + json.results[i].accession + "</a>" + ver + "</td>"
                 } else {
+                  if (json.results[i].source == "Cellosaurus") {
                     htmlContent += "<td class='" + cls + "'><a href=\"https://web.expasy.org/cellosaurus/" + json.results[i].accession + "\" target=\"_blank\">" + json.results[i].accession + "</a>" + ver + "</td>"
+                  } else {
+                    htmlContent += "<td class='" + cls + "'><a href=\"https://cds.team/depmap/cell_line/" + json.results[i].accession + "\" target=\"_blank\">" + json.results[i].accession + "</a>" + ver + "</td>"
+                  }
                 }
 
-                htmlContent += "<td><a href=\"https://cds.team/depmap/cell_line/" + json.results[i].arxspan + "\" target=\"_blank\">" + json.results[i].arxspan + "</td>"
+                //htmlContent += "<td><a href=\"https://cds.team/depmap/cell_line/" + json.results[i].source + "\" target=\"_blank\">" + json.results[i].source + "</td>"
+                htmlContent += "<td>" + json.results[i].source + "</td>";
 
                 htmlContent += "<td>" + json.results[i].name + "</td>";
                 if ((document.getElementById("check-include-Amelogenin").checked && json.results[i].profiles[a].markerNumber < 9) || (!document.getElementById("check-include-Amelogenin").checked && json.results[i].profiles[a].markerNumber < 8)) {

@@ -14,7 +14,7 @@ class CellLineTest {
 
     @Test
     public void reduceProfilesTest1() {
-        CellLine cellLine = new CellLine("Accession", "Name", "Species", "Arxspan");
+        CellLine cellLine = new CellLine("Accession", "Name", "Species", "Source");
 
         Profile profile1 = new Profile();
         Profile profile2 = new Profile();
@@ -34,7 +34,7 @@ class CellLineTest {
 
     @Test
     public void reduceProfilesTest2() {
-        CellLine cellLine = new CellLine("Accession", "Name", "Species", "Arxspan");
+        CellLine cellLine = new CellLine("Accession", "Name", "Species", "Source");
 
         Profile profile1 = new Profile();
 
@@ -50,7 +50,7 @@ class CellLineTest {
 
     @Test
     public void reduceProfilesTest3() {
-        CellLine cellLine = new CellLine("Accession", "Name", "Species", "Arxspan");
+        CellLine cellLine = new CellLine("Accession", "Name", "Species", "Source");
 
         Profile profile1 = new Profile();
         Profile profile2 = new Profile();
@@ -76,7 +76,7 @@ class CellLineTest {
 
     @Test
     public void reduceProfilesTest4() {
-        CellLine cellLine = new CellLine("Accession", "Name", "Species", "Arxspan");
+        CellLine cellLine = new CellLine("Accession", "Name", "Species", "Source");
 
         Profile profile1 = new Profile();
         Profile profile2 = new Profile();
@@ -99,7 +99,7 @@ class CellLineTest {
 
     @Test
     public void reduceProfilesTest5() {
-        CellLine cellLine = new CellLine("Accession", "Name", "Species", "Arxspan");
+        CellLine cellLine = new CellLine("Accession", "Name", "Species", "Source");
 
         Profile profile1 = new Profile();
         Profile profile2 = new Profile();
@@ -130,15 +130,15 @@ class CellLineTest {
     public void compareToTest1() {
         List<CellLine> cellLines = new ArrayList<>();
 
-        CellLine cellLine1 = new CellLine("Accession1", "Name1", "Species1", "Arxspan");
-        CellLine cellLine2 = new CellLine("Accession2", "Name2", "Species2", "Arxspan");
-        CellLine cellLine3 = new CellLine("Accession3", "Name3", "Species3", "Arxspan");
-        CellLine cellLine4 = new CellLine("Accession4", "Name4", "Species4", "Arxspan");
-        CellLine cellLine5 = new CellLine("Accession5", "Name5", "Species5", "Arxspan");
-        CellLine cellLine6 = new CellLine("Accession6", "Name6", "Species6", "Arxspan");
-        CellLine cellLine7 = new CellLine("Accession7", "Name7", "Species7", "Arxspan");
-        CellLine cellLine8 = new CellLine("Accession8", "Name8", "Species8", "Arxspan");
-        CellLine cellLine9 = new CellLine("Accession9", "Name9", "Species9", "Arxspan");
+        CellLine cellLine1 = new CellLine("Accession1", "Name1", "Species1", "Source");
+        CellLine cellLine2 = new CellLine("Accession2", "Name2", "Species2", "Source");
+        CellLine cellLine3 = new CellLine("Accession3", "Name3", "Species3", "Source");
+        CellLine cellLine4 = new CellLine("Accession4", "Name4", "Species4", "Source");
+        CellLine cellLine5 = new CellLine("Accession5", "Name5", "Species5", "Source");
+        CellLine cellLine6 = new CellLine("Accession6", "Name6", "Species6", "Source");
+        CellLine cellLine7 = new CellLine("Accession7", "Name7", "Species7", "Source");
+        CellLine cellLine8 = new CellLine("Accession8", "Name8", "Species8", "Source");
+        CellLine cellLine9 = new CellLine("Accession9", "Name9", "Species9", "Source");
 
         cellLine1.setBestScore(99.8);
         cellLine2.setBestScore(77.8);

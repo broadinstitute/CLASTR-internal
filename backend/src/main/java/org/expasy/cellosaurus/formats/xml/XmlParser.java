@@ -33,13 +33,13 @@ public class XmlParser implements Parser {
             DefaultHandler handler = new DefaultHandler() {
                 boolean bAccession = false;
                 boolean bName = false;
-                boolean bArxspan = false;
+                boolean bSource = false;
                 boolean bStrList = false;
                 boolean bMarkerList = false;
                 boolean bAlleles = false;
                 boolean bSameOriginAs = false;
                 boolean bDerivedFrom = false;
-                boolean bSource = false;
+                boolean bSTRFrom = false;
                 boolean bSpeciesList = false;
                 boolean bSpecies = false;
                 boolean bProblematic = false;
@@ -54,7 +54,8 @@ public class XmlParser implements Parser {
                 ConflictResolver conflictResolver = new ConflictResolver();
 
                 String name;
-                String arxspan;
+                String source;
+                String str_from;
                 Marker marker;
                 String markerName;
                 boolean markerConflicted;
@@ -79,9 +80,9 @@ public class XmlParser implements Parser {
                                 bName = true;
                             }
                             break;
-                        case "arxspan":
+                        case "str_from":
                             if (attributes.getValue("type").equals("identifier")) {
-                                bArxspan = true;
+                                bSTRFrom = true;
                             }
                             break;
                         case "comment":
@@ -167,7 +168,7 @@ public class XmlParser implements Parser {
                                 species.addHierarchy(parent, accession);
 
                                 if (!conflictResolver.isEmpty()) {
-                                    CellLine cellLine = new CellLine(accession, name, speciesName, arxspan);
+                                    CellLine cellLine = new CellLine(accession, name, speciesName, str_from);
                                     cellLine.setProblematic(!problem.isEmpty());
                                     if (!problem.isEmpty()) cellLine.setProblem(problem);
                                     cellLine.addProfiles(conflictResolver.resolve());
@@ -175,7 +176,7 @@ public class XmlParser implements Parser {
                                 }
                             }
                             conflictResolver = new ConflictResolver();
-                            name = arxspan = parent = problem = "";
+                            name = str_from = parent = problem = "";
                             accessions = new ArrayList<>();
                             speciesNames = new ArrayList<>();
                             origins = new HashSet<>();
@@ -222,9 +223,9 @@ public class XmlParser implements Parser {
                     } else if (bName) {
                         name = new String(ch, start, length);
                         bName = false;
-                    } else if (bArxspan) {
-                        arxspan = new String(ch, start, length);
-                        bArxspan = false;
+                    } else if (bSTRFrom) {
+                        str_from = new String(ch, start, length);
+                        bSTRFrom = false;
                     } else if (bAlleles) {
                         if (bStrList) {
                             for (String allele : new String(ch, start, length).split(",")) {
