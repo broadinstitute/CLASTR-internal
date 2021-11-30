@@ -2,10 +2,27 @@ import xml.etree.ElementTree as ET
 import pandas as pd
 import numpy as np
 import copy
+import os
+from apiclient import discovery
+from google.oauth2 import service_account
 
-tree = ET.parse('/Users/wcolgan/Code/CLASTR-internal/resources/cellosaurus.xml')
+tree = ET.parse('../resources/cellosaurus.xml')
 
-df = pd.read_csv('/Users/wcolgan/Data/DepMap_STR_Database/database_v3.tsv',sep = "\t")
+scopes = ['https://www.googleapis.com/auth/spreadsheets.readonly']
+secret_file = '../resources/client_secret.json'
+
+spreadsheet_id = '134zxrQ77yMdDL4hLYybJJQN6pxLZIVLz-hORXIpid50'
+range_name = 'Approved Reference STR'
+
+credentials = service_account.Credentials.from_service_account_file(secret_file, scopes=scopes)
+service = discovery.build('sheets', 'v4', credentials=credentials)
+
+sheet = service.spreadsheets()
+result = sheet.values().get(spreadsheetId=spreadsheet_id,
+                            range=range_name).execute()
+values = result.get('values', [])
+df = pd.DataFrame(values[1:], columns=values[0])
+
 sites = ["D3S1358","TH01","D21S11","D18S51","Penta E","D5S818","D13S317","D7S820", \
          "D16S539","CSF1PO","Penta D","vWA","D8S1179","TPOX","FGA","Amelogenin"]
 df["Stripped Name"] = df["Stripped Name"].fillna("")

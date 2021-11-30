@@ -8,4 +8,4 @@ if [ ! -r resources/database.xml ] ; then
 fi
 
 rsync -rp ./ ubuntu@cds.team:/data1/str-search/
-ssh cds.team sudo systemctl restart str-search
+ssh ubuntu@cds.team sudo systemctl restart str-search
