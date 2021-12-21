@@ -72,7 +72,7 @@ for i in range(0,df.shape[0]):
         marker = ET.Element("marker",attrib = {'id': site,'conflict': 'false'})
         marker_data_list = ET.SubElement(marker,'marker-data-list')
         marker_data = ET.Element("marker-data")
-        alleles = ET.SubElement(marker_data,"alleles")
+        alleles = ET.SubElement(marker_data,"marker-alleles")
         alleles.text = df.loc[i,site].replace(", ",",")
         marker_data_list.append(marker_data)
         marker_list.append(marker)

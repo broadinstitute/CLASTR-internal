@@ -124,7 +124,7 @@ public class XmlParser implements Parser {
                             marker = new Marker(markerName);
                             marker.setConflicted(markerConflicted);
                             break;
-                        case "alleles":
+                        case "marker-alleles":
                             bAlleles = true;
                             break;
                         case "same-origin-as":
