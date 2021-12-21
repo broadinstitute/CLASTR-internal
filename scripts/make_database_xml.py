@@ -99,4 +99,4 @@ def indent(elem, level=0):
 
 indent(root)
 
-tree.write('/Users/wcolgan/Code/CLASTR-internal/resources/database.xml')
+tree.write('../resources/database.xml')
