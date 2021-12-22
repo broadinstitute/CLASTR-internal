@@ -2,10 +2,8 @@
 
 set -ex
 
-if [ ! -r resources/database.xml ] ; then
-    echo "Missing resources/database.xml. This file is not part of the gitrepo because it contains patient information, so please get a copy and place in your local directory"
-    exit 1
-fi
+# resources/database.xml should now be updated via jenkins job ( https://datascidev.broadinstitute.org/job/Update%20str-search/ ) 
+# so skip it when copying files over
 
-rsync -rp ./ ubuntu@cds.team:/data1/str-search/
+rsync --progress -rp ./ ubuntu@cds.team:/data1/str-search/ --exclude cellosaurus.xml --exclude .git --exclude resources/database.xml
 ssh ubuntu@cds.team sudo systemctl restart str-search
