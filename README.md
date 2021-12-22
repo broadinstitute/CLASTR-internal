@@ -53,3 +53,11 @@ host by running:
 
 This will copy the current working directory the cds.team and then restart
 the service.
+
+After copying changes over, it's probably best to also re-run the job which
+regenerates the DB in case that script has changed.
+
+You can do this by going to https://datascidev.broadinstitute.org/job/Update%20str-search/ 
+Sign in (if not already) and then click "Build now"
+
+Once it's done the changes should be visible.
