@@ -7,7 +7,7 @@ if [ -e resources/cellosaurus.xml ]; then
 else
     curl_opts=""
 fi
-curl -o resources/cellosaurus.xml $curl_opts https://ftp.expasy.org/databases/cellosaurus/cellosaurus.xml
+curl -k -o resources/cellosaurus.xml $curl_opts https://ftp.expasy.org/databases/cellosaurus/cellosaurus.xml
 
 docker build scripts -t clastr-internal-scripts
 docker run -v $PWD:/work -w /work/scripts clastr-internal-scripts python make_database_xml.py
